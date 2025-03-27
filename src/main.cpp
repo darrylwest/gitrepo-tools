@@ -4,26 +4,25 @@
 
 #include <spdlog/spdlog.h>
 
-#include <gitrepo/tools.hpp>
-#include <domainkeys/keys.hpp>
-#include <quickkv/quickkv.hpp>
+#include <gitrepo/cli.hpp>
+// #include <gitrepo/tools.hpp>
+// #include <domainkeys/keys.hpp>
+// #include <quickkv/quickkv.hpp>
 
-int main() {
-    constexpr auto lang = "c++";
-    spdlog::info("Hello and welcome to {} tiny application, version: {}", lang, gitrepo::tools::VERSION);
+int main(int argc, char **argv) {
+    spdlog::set_level(spdlog::level::info);
 
-    // create the k/v store
-    quickkv::KVStore store;
+    auto config = gitrepo::cli::parse(argc, argv);
 
-    // create a unique timestamp key
-    auto key = domainkeys::keys::create_timestamp_key();
-    spdlog::info("key: {}", key.to_string());
+    if (config.skip) {
+        return 0;
+    }
 
-    // write to the store
-    store.set(key.to_string(), "hello tiny kv store.");
-
-    // show the store size
-    spdlog::info("store size: {}", store.size());
+    spdlog::info("config: repo home: {}, config file: {}, command: {}",
+        config.repo_home,
+        config.config_file,
+        config.cmd
+    );
 
     return 0;
 }
