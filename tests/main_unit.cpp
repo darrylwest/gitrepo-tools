@@ -20,7 +20,6 @@ struct MainTestSetup {
 
         // do any config stuff
         timer.start();
-        // timer.log << "started";
     }
 
     ~MainTestSetup() {
@@ -28,15 +27,9 @@ struct MainTestSetup {
         timer.stop();
         std::println("{}Tests complete...{}", bright::cyan, colors::reset);
         timer.show_duration();
-        // std::println("{}", timer.log.str());
     }
 };
 
 // put helpers here...
 MainTestSetup setup;
 
-// Tests here
-TEST_CASE("Version test", "[version]") {
-    const auto vers = gitrepo::tools::VERSION;
-    REQUIRE(vers == gitrepo::tools::VERSION);
-}
