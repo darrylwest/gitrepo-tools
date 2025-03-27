@@ -1,22 +1,23 @@
-# Tiny Application Starter
+# CPP Git Repo Tools
 
-```
- _______ __                _______ __               __                _______              
-|_     _|__|.-----.--.--. |     __|  |_.---.-.----.|  |_.-----.----. |   _   |.-----.-----.
-  |   | |  ||     |  |  | |__     |   _|  _  |   _||   _|  -__|   _| |       ||  _  |  _  |
-  |___| |__||__|__|___  | |_______|____|___._|__|  |____|_____|__|   |___|___||   __|   __|
-                  |_____|                                                     |__|  |__|   
+```ascii
+ _______ __ __     ______                      _______               __        
+|     __|__|  |_  |   __ \.-----.-----.-----. |_     _|.-----.-----.|  |.-----.
+|    |  |  |   _| |      <|  -__|  _  |  _  |   |   |  |  _  |  _  ||  ||__ --|
+|_______|__|____| |___|__||_____|   __|_____|   |___|  |_____|_____||__||_____|
+                                |__|                                           
 ```
 
-The `kvstore branch` addes quickkv and domain keys for a small, in-memory k/v store.
+Tools to monitor and manage mutiple repos on a single machine.
 
 ## Features
 
-* cmake 3.30
-* c++23
-* osx, linux
+* collect a database of all repos on system
+* report status, branch, location 
+* send git commands to multiple repos
+
  
-## Includes
+## Installation Requirements
 
 * spdlog
 * Catch2
@@ -26,14 +27,15 @@ The `kvstore branch` addes quickkv and domain keys for a small, in-memory k/v st
 ## File Structure
 
 ```
-tiny-app
+git-repo-tools
   | 
   └─include
-    ├── app
-    │   └── tiny.hpp
+    ├── gitrepo
+    │   └── tools.hpp
     └── vendor
     ├── ansi_colors.hpp
-    └── cxxopts.hpp
+    ├── cxxopts.hpp
+    └── perftimer.hpp
   └─src
     └── main.cpp
   └─tests
@@ -42,8 +44,6 @@ tiny-app
 
 ## Use
 
-* clone or download this project
-* change include path to real name
-* remove / replace `.git` and do a `git init`
+_TDB_
 
 ###### 2025.03.27 | dpw
