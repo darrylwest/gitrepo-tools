@@ -4,13 +4,13 @@
 
 #include <spdlog/spdlog.h>
 
-#include <app/tiny.hpp>
+#include <gitrepo/tools.hpp>
 #include <domainkeys/keys.hpp>
 #include <quickkv/quickkv.hpp>
 
 int main() {
     constexpr auto lang = "c++";
-    spdlog::info("Hello and welcome to {} tiny application, version: {}", lang, app::VERSION);
+    spdlog::info("Hello and welcome to {} tiny application, version: {}", lang, gitrepo::tools::VERSION);
 
     // create the k/v store
     quickkv::KVStore store;

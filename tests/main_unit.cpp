@@ -4,7 +4,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() function
 
 #include <catch2/catch_all.hpp>
-#include <app/tiny.hpp>
+#include <gitrepo/tools.hpp>
 #include <vendor/ansi_colors.hpp>
 #include <spdlog/spdlog.h>
 #include <print>
@@ -37,6 +37,6 @@ MainTestSetup setup;
 
 // Tests here
 TEST_CASE("Version test", "[version]") {
-    const auto vers = app::VERSION;
-    REQUIRE(vers == app::VERSION);
+    const auto vers = gitrepo::tools::VERSION;
+    REQUIRE(vers == gitrepo::tools::VERSION);
 }

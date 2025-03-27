@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-project(TinyApplication VERSION 1.0.0)
+project(GitRepoTools VERSION 1.0.0)
 
 # Set default build type to Release if not specified
 if(NOT CMAKE_BUILD_TYPE)
@@ -86,7 +86,7 @@ set(DEPENDENT_LIBRARIES
 )
 
 # Add executables
-add_executable(tiny-app ${SRC_DIR}/main.cpp)
+add_executable(gitrepo-tools ${SRC_DIR}/main.cpp)
 add_executable(unit_tests tests/main_unit.cpp)
 
 # Function to set up target properties
@@ -114,7 +114,7 @@ function(setup_target_properties target)
 endfunction()
 
 # Use the function for each target
-foreach(target tiny-app unit_tests)
+foreach(target gitrepo-tools unit_tests)
     setup_target_properties(${target})
 endforeach()
 
