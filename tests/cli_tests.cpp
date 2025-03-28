@@ -85,7 +85,6 @@ TEST_CASE("Test CLI", "[cli][parse-command]") {
 }
 
 TEST_CASE("Test CLI", "[cli][parse-help]") {
-
     const auto output = helpers::capture_stdout([]() {
         const std::function<void(int code)>shutdown = [](int code) {
             INFO("return code should be zero");
