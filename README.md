@@ -46,4 +46,8 @@ git-repo-tools
 
 _TDB_
 
-###### 2025.03.27 | dpw
+## Future
+
+_After the initial concepts are flushed out, it will be time to ingegrate with libgit2 for extended operations.  This may or maynot happen..._
+
+###### 2025.03.28 | dpw

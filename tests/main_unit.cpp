@@ -28,7 +28,7 @@ struct MainTestSetup {
         const auto version = gitrepo::tools::VERSION;
         std::println("{}Tests complete, version: {}", bright::cyan, version);
         timer.show_duration(": ");
-        std::puts(colors::red.c_str());
+        std::puts(colors::reset.c_str());
     }
 };
 
