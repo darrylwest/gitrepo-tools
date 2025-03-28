@@ -48,7 +48,7 @@ namespace gitrepo::cli {
                 config.config_file = result["config"].as<std::string>();
             }
         } catch (const cxxopts::OptionException& e) {
-            std::cout << "error parsing options: " << e.what() << std::endl;
+            std::cout << "error parsing options: " << e.what() << '\n';
             config.skip = true;
         }
 

@@ -123,3 +123,23 @@ TEST_CASE("Test CLI", "[cli][parse-version]") {
     INFO(output);
     REQUIRE(output.find("Version:") != std::string::npos);
 }
+
+TEST_CASE("Test CLI", "[cli][parse-bad-param]") {
+    const auto output = helpers::capture_stdout([]() {
+        const std::function<void(int code)>shutdown = [](int code) {
+            INFO("return code should be zero");
+            REQUIRE(code == 0);
+        };
+
+        const auto config = call_parse_cli({"gitrepo-tools", "--bad-flag", });
+
+        INFO("repo home in command line params");
+        REQUIRE(config.repo_home == ".gitrepo-tools");
+        REQUIRE(config.config_file == "config.json");
+        REQUIRE(config.cmd == "pull");
+        REQUIRE(config.skip == true);
+    });
+
+    INFO(output);
+    REQUIRE(output.find("error parsing") != std::string::npos);
+}
