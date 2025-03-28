@@ -16,5 +16,4 @@ namespace gitrepo::cli {
     };
 
     Config parse(int argc, char* argv[]);
-}
-
+}  // namespace gitrepo::cli

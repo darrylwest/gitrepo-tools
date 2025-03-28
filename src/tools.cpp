@@ -2,6 +2,4 @@
 // dpw
 //
 
-namespace gitrepo::tools {
-
-}
+namespace gitrepo::tools {}

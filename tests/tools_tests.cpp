@@ -12,6 +12,15 @@ TEST_CASE("Test tools", "[version]") {
 }
 
 TEST_CASE("Test tools", "[tools][repo-struct]") {
+    tools::GitRepo{
+        .name = "test",
+        .branch = "develop",
+        .status = "clean",
+        .parent = "/some/path",
+        .url = "https://github.com/dpw/test.git",
+        .enabled = true,
+    };
+
     REQUIRE(true);
 }
 
