@@ -5,37 +5,41 @@
 #include <gitrepo/cli.hpp>
 #include <string>
 #include <vector>
+#include <functional>
 
 #include "spdlog/spdlog.h"
 
-struct Params {
-    int argc;
-    char** argv;
-};
+namespace helpers {
 
-Params create_params(std::vector<std::string> args) {
-    Params params;
+    inline std::string capture_stdout(const std::function<void()>& func) {
+        std::ostringstream oss;
+        std::streambuf* old_cout = std::cout.rdbuf(oss.rdbuf());  // Redirect std::cout
 
-    params.argc = args.size();
+        func();  // Execute function that prints to stdout
 
-    // need to add this for the argv terminator
-    args.emplace_back("");
-
-    spdlog::debug("argc:{}",  params.argc);
-
-    params.argv = new char*[args.size()];
-    for (size_t i = 0; i < args.size(); i++) {
-        params.argv[i] = const_cast<char*>(args[i].c_str());
-        spdlog::debug("argv[{}] = {}", i, args[i]);
+        std::cout.rdbuf(old_cout);  // Restore std::cout
+        return oss.str();
     }
+}
 
-    return params;
+gitrepo::cli::Config call_parse_cli(const std::vector<std::string>& args) {
+    std::vector<char*> argv;
+    argv.push_back(const_cast<char*>("gitrepo-tools"));
+
+    for (auto& arg : args) {
+        argv.push_back(const_cast<char*>(arg.c_str()));
+    }
+    argv.push_back(nullptr);
+
+    auto argc = static_cast<int>(argv.size() - 1);
+
+    return gitrepo::cli::parse(argc, argv.data());
 }
 
 TEST_CASE("Test CLI", "[cli][parse-no-params]") {
-    Params params = create_params({"gitrepo-tools"});
+    std::vector<char*> argv;
 
-    auto config = gitrepo::cli::parse(params.argc, params.argv);
+    auto config = call_parse_cli({});
 
     INFO("zero command line params");
     REQUIRE(config.repo_home == ".gitrepo-tools");
@@ -45,18 +49,78 @@ TEST_CASE("Test CLI", "[cli][parse-no-params]") {
 }
 
 TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
-    spdlog::set_level(spdlog::level::off);
-    Params params = create_params({"gitrepo-tools", "--repo-home", "./" });
-
-    const auto config = gitrepo::cli::parse(params.argc, params.argv);
+    const auto config = call_parse_cli({"gitrepo-tools", "--repo-home", "./" });
 
     spdlog::debug("repo home in command line params: {}", config.repo_home);
 
     INFO("repo home in command line params");
-    // REQUIRE(config.repo_home == "./");
+    REQUIRE(config.repo_home == "./");
     REQUIRE(config.config_file == "config.json");
     REQUIRE(config.cmd == "pull");
     REQUIRE(config.skip == false);
 }
 
+TEST_CASE("Test CLI", "[cli][parse-config]") {
+    const auto config = call_parse_cli({"gitrepo-tools", "--config", "cfg.toml" });
 
+    spdlog::debug("repo home in command line params: {}", config.repo_home);
+
+    INFO("repo home in command line params");
+    REQUIRE(config.repo_home == ".gitrepo-tools");
+    REQUIRE(config.config_file == "cfg.toml");
+    REQUIRE(config.cmd == "pull");
+    REQUIRE(config.skip == false);
+}
+
+TEST_CASE("Test CLI", "[cli][parse-command]") {
+    const auto config = call_parse_cli({"gitrepo-tools", "--command", "push" });
+
+    spdlog::debug("repo home in command line params: {}", config.repo_home);
+
+    INFO("repo home in command line params");
+    REQUIRE(config.repo_home == ".gitrepo-tools");
+    REQUIRE(config.config_file == "config.json");
+    REQUIRE(config.cmd == "push");
+    REQUIRE(config.skip == false);
+}
+
+TEST_CASE("Test CLI", "[cli][parse-help]") {
+
+    const auto output = helpers::capture_stdout([]() {
+        const std::function<void(int code)>shutdown = [](int code) {
+            INFO("return code should be zero");
+            REQUIRE(code == 0);
+        };
+
+        const auto config = call_parse_cli({"gitrepo-tools", "--help", });
+
+        INFO("repo home in command line params");
+        REQUIRE(config.repo_home == ".gitrepo-tools");
+        REQUIRE(config.config_file == "config.json");
+        REQUIRE(config.cmd == "pull");
+        REQUIRE(config.skip == true);
+    });
+
+    INFO(output);
+    REQUIRE(output.find("command line") != std::string::npos);
+}
+
+TEST_CASE("Test CLI", "[cli][parse-version]") {
+    const auto output = helpers::capture_stdout([]() {
+        const std::function<void(int code)>shutdown = [](int code) {
+            INFO("return code should be zero");
+            REQUIRE(code == 0);
+        };
+
+        const auto config = call_parse_cli({"gitrepo-tools", "--version", });
+
+        INFO("repo home in command line params");
+        REQUIRE(config.repo_home == ".gitrepo-tools");
+        REQUIRE(config.config_file == "config.json");
+        REQUIRE(config.cmd == "pull");
+        REQUIRE(config.skip == true);
+    });
+
+    INFO(output);
+    REQUIRE(output.find("Version:") != std::string::npos);
+}
