@@ -25,8 +25,10 @@ struct MainTestSetup {
     ~MainTestSetup() {
         using namespace colors;
         timer.stop();
-        std::println("{}Tests complete...{}", bright::cyan, colors::reset);
-        timer.show_duration();
+        const auto version = gitrepo::tools::VERSION;
+        std::println("{}Tests complete, version: {}", bright::cyan, version);
+        timer.show_duration(": ");
+        std::puts(colors::red.c_str());
     }
 };
 

@@ -10,7 +10,7 @@
 #include <vector>
 
 namespace gitrepo::tools {
-    constexpr auto VERSION = "0.2.1-106";
+    constexpr auto VERSION = "0.2.1-107";
 
     struct GitRepo {
         std::string name;
