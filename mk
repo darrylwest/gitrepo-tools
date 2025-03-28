@@ -5,7 +5,7 @@
 
 set -eu
 
-export project=tiny-app
+export project=gitrepo-tools
 
 export verbose=''
 export os="$(uname -s)"

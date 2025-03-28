@@ -7,18 +7,45 @@
 #include <vector>
 #include <string>
 
+struct Params {
+    int argc;
+    char** argv;
+};
+
+Params create_params(std::vector<std::string> args) {
+    Params params;
+
+    params.argc = args.size();
+    params.argv = new char*[args.size()];
+    for (size_t i = 0; i < args.size(); i++) {
+        params.argv[i] = const_cast<char*>(args[i].c_str());
+    }
+
+    return params;
+}
+
 TEST_CASE("Test CLI", "[cli][parse-no-params]") {
-    int argc = 1;
-    std::vector<char*> argv;
-    argv.emplace_back(const_cast<char*>("gitrepo-tools"));
-    argv.push_back(nullptr);
+    Params params = create_params({"gitrepo-tools"});
 
-    auto config = gitrepo::cli::parse(argc, argv.data());
+    auto config = gitrepo::cli::parse(params.argc, params.argv);
 
+    INFO("zero command line params");
     REQUIRE(config.repo_home == ".gitrepo-tools");
     REQUIRE(config.config_file == "config.json");
     REQUIRE(config.cmd == "pull");
     REQUIRE(config.skip == false);
-
 }
+
+TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
+    Params params = create_params({"gitrepo-tools", "--repo-home", "./"});
+
+    auto config = gitrepo::cli::parse(params.argc, params.argv);
+
+    INFO("repo home in command line params");
+    REQUIRE(config.repo_home == ".gitrepo-tools");
+    REQUIRE(config.config_file == "config.json");
+    REQUIRE(config.cmd == "pull");
+    REQUIRE(config.skip == false);
+}
+
 

@@ -4,11 +4,13 @@
 
 #pragma once
 
-#include <catch2/catch_config.hpp>
 #include <filesystem>
+#include <gitrepo/cli.hpp>
+#include <string>
+#include <vector>
 
 namespace gitrepo::tools {
-    constexpr auto VERSION = "0.2.0-103";
+    constexpr auto VERSION = "0.2.0-104";
 
     struct GitRepo {
         std::string name;
@@ -29,7 +31,7 @@ namespace gitrepo::tools {
     GitRepo scan_repo(const std::string& path);
 
     // recursively scan all folders for repos and return a vector of GitRepo structs
-    std::vector<GitRepo> scan_folders(const cli::Config& config);
+    std::vector<GitRepo> scan_folders(const gitrepo::cli::Config& config);
 
     // run a command and return the response
     CommandResponse run_command(const GitRepo& repo, const std::string& command);

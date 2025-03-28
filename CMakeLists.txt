@@ -95,6 +95,7 @@ add_executable(gitrepo-tools
 add_executable(unit_tests 
     tests/main_unit.cpp
     tests/cli_tests.cpp
+    tests/tools_tests.cpp
     ${SRC_DIR}/cli.cpp
     ${SRC_DIR}/tools.cpp
 

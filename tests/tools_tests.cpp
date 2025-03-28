@@ -12,7 +12,7 @@ TEST_CASE("Test tools", "[version]") {
 }
 
 TEST_CASE("Test tools", "[tools][repo-struct]") {
-    tools::GitRepo{
+    auto repo = gitrepo::tools::GitRepo{
         .name = "test",
         .branch = "develop",
         .status = "clean",
