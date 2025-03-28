@@ -14,21 +14,30 @@ namespace gitrepo::cli {
         try {
             cxxopts::Options options(argv[0], "A command line tool for managing git repos");
 
-            options.add_options()("v,version", "Show the current version")(
-                "h,help", "Show this help")("c,command", "The command to run on all repos",
-                                            cxxopts::value<std::string>())(
-                "config", "The configuration file", cxxopts::value<std::string>());
+            // clang-format off
+            options.add_options()
+                ("v,version", "Show the current version")
+                ( "h,help", "Show this help")
+                ("r,repo-home", "Set the repo home folder", cxxopts::value<std::string>())
+                ("c,command", "The command to run on all repos", cxxopts::value<std::string>())
+                ( "config", "The configuration file", cxxopts::value<std::string>()
+            );
 
+            // clang-format on
             auto result = options.parse(argc, argv);
 
             if (result.count("version")) {
-                std::cout << argv[0] << " Version: " << gitrepo::tools::VERSION << std::endl;
+                std::cout << argv[0] << " Version: " << gitrepo::tools::VERSION << '\n';
                 config.skip = true;
             }
 
             if (result.count("help")) {
-                std::cout << options.help() << std::endl;
+                std::cout << options.help() << '\n';
                 config.skip = true;
+            }
+
+            if (result.count("repo-home")) {
+                config.repo_home = result["repo-home"].as<std::string>();
             }
 
             if (result.count("command")) {

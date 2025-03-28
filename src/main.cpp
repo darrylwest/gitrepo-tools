@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    spdlog::info("config: repo home: {}, config file: {}, command: {}", config.repo_home,
-                 config.config_file, config.cmd);
+    spdlog::info("config: repo-home: {}, file: {}, cmd: {}", config.repo_home, config.config_file,
+                 config.cmd);
 
     // now scan the folders under repo home and update the database
 
