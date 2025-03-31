@@ -7,7 +7,7 @@
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
 
-TEST_CASE("Test config", "[config]") {
+TEST_CASE("Config Tests", "[config]") {
     REQUIRE(true);
     const gitrepo::cli::CLI ctx{
         .repo_home = "./",
@@ -17,5 +17,13 @@ TEST_CASE("Test config", "[config]") {
     };
 
     auto config = gitrepo::config::parse_config(ctx);
+
+    REQUIRE(config.version >= "0.1.0-100");
+    REQUIRE(config.home_folder == "raincity");
+    REQUIRE(config.verbose == false);
+
+    // logging
+    // skip folders
+
 }
 
