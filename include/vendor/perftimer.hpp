@@ -1,73 +1,83 @@
 //
-// A general purpose perf timer in a header-only library with delayed logging.
+// A general purpose performance timer in a header-only library with delayed
+// logging.
 //
 
 #pragma once
 
+#include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <iomanip>
-#include <chrono>
 #include <string>
 
 namespace perftimer {
-    constexpr auto VERSION = "0.6.4";
+    // Version of the performance timer library
+    constexpr auto VERSION = "0.7.2";
 
+    // Type alias for high-resolution clock and time point
     using Clock = std::chrono::high_resolution_clock;
     using TimePoint = std::chrono::time_point<Clock>;
 
+    // Performance Timer class to measure execution time
     struct PerfTimer {
-    private:
-        constexpr static auto billions = 1'000'000'000;
-        constexpr static auto millions = 1'000'000;
+      private:
+        // Constants for time conversions
+        constexpr static auto billions = 1'000'000'000;  // 1 billion nanoseconds
+        constexpr static auto millions = 1'000'000;      // 1 million nanoseconds
 
-        TimePoint t0;
-        TimePoint t1;
+        TimePoint t0;  // Start time point
+        TimePoint t1;  // End time point
 
-        std::string name;
-        
+        std::string name;  // Name of the timer for identification
 
-    public:
-        // Construct with a name for this timer.  Make it unique if used in a map
-        PerfTimer(const std::string timer_name) : name(timer_name) { };
+      public:
+        // Constructor that initializes the timer with a unique name
+        explicit PerfTimer(std::string timer_name) : name(std::move(timer_name)) {};
 
-        // log messages in a buffered way to delay console log delays. use like cout << "message"
-        // use log.str() to read the contents. 
-        // @see https://en.cppreference.com/w/cpp/io/basic_ostringstream
+        // Output stream for buffered logging; allows delayed console output
         std::ostringstream log;
 
-        // set the show precision, defaults to 9 places
+        // Precision for displaying time; defaults to 9 decimal places
         int prec = 9;
 
-        // start or re-start the timer and set t0
+        // Start or restart the timer; call stop() to capture the duration
         void start() {
-            t0 = Clock::now();
+            t0 = Clock::now();  // Record the current time as start time
+            t1 = Clock::now();  // set the stop time to ensure it's initialized
         }
 
-        // stop the clock and set t1
+        // Stop the timer and record the end time
         void stop() {
-            t1 = Clock::now();
+            t1 = Clock::now();  // Record the current time as end time
         }
 
-
-        // returns the nanos between t0 and t1
+        // Calculate and return the duration in nanoseconds between start and end
         auto get_duration() {
-            const std::chrono::duration<double, std::nano> dur = t1 - t0;
-            return dur;
+            const std::chrono::duration<double, std::nano> dur = t1 - t0;  // Calculate duration
+            return dur;                                                    // Return duration
         }
 
-        // show the timer name, a message and the duration between t0 and t1
-        void show_duration(const std::string& message = ": process took: ") {
-            auto dur = get_duration();
+        // create a duration message and return the string
+        std::string get_duration_string(const std::string &message = ": process took: ") {
+            auto dur = get_duration();  // Get the duration
+            std::ostringstream buffer;
+
+            // Output the duration in appropriate units
             if (dur.count() > billions) {
-                std::cout << name << message << std::setprecision(prec) << dur.count() / billions << " seconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / billions << " seconds";
             } else if (dur.count() > millions) {
-                std::cout << name << message << std::setprecision(prec) << dur.count() / millions << " milliseconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / millions << " milliseconds";
             } else {
-                std::cout << name << message << std::setprecision(prec) << dur.count() / 1'000 << " microseconds" << '\n';
+                buffer << name << message << std::setprecision(prec) << dur.count() / 1'000 << " microseconds";
             }
 
+            return buffer.str();
         }
 
+        // Display the duration with a custom message
+        void show_duration(const std::string &message = ": process took: ") {
+            std::cout << get_duration_string(message) << '\n';
+        }
     };
-}
+}  // namespace perftimer
