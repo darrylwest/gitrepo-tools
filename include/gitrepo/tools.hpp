@@ -10,7 +10,7 @@
 #include <vector>
 
 namespace gitrepo::tools {
-    constexpr auto VERSION = "0.2.1-108";
+    constexpr auto VERSION = "0.2.2-109";
 
     struct GitRepo {
         std::string name;
@@ -31,7 +31,7 @@ namespace gitrepo::tools {
     GitRepo scan_repo(const std::string& path);
 
     // recursively scan all folders for repos and return a vector of GitRepo structs
-    std::vector<GitRepo> scan_folders(const gitrepo::cli::Config& config);
+    std::vector<GitRepo> scan_folders(const gitrepo::cli::CLI& ctx);
 
     // run a command and return the response
     CommandResponse run_command(const GitRepo& repo, const std::string& command);

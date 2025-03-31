@@ -12,13 +12,13 @@
 int main(int argc, char **argv) {
     spdlog::set_level(spdlog::level::info);
 
-    auto config = gitrepo::cli::parse(argc, argv);
+    auto ctx = gitrepo::cli::parse(argc, argv);
 
-    if (config.skip) {
+    if (ctx.skip) {
         return 0;
     }
 
-    spdlog::info("config: {}", config.to_string());
+    spdlog::info("context: {}", ctx.to_string());
 
     // now scan the folders under repo home and update the database
 

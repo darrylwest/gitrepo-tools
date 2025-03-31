@@ -11,17 +11,18 @@
 namespace gitrepo::cli {
     // TODO add extended help here
     // set the config defaults here
-    struct Config {
-        std::string repo_home = ".gitrepo-tools"; // store date, logs, config
-        std::string config_file = "config.json"; // look in repo_home, ~/.config/gitrepo-tools, etc
+    struct CLI {
+        std::string repo_home = ".gitrepo-tools";  // store date, logs, config
+        std::string config_file = "config.json";  // look in repo_home, ~/.config/gitrepo-tools, etc
         std::string cmd = "pull";
         bool skip = false;
 
         // show the important attributes
-        auto to_string() const {
-            return fmt::format("repo_home: {}, config_file: {}, cmd: {}", repo_home, config_file, cmd);
+        [[nodiscard]] auto to_string() const {
+            return fmt::format("repo_home: {}, config_file: {}, cmd: {}", repo_home, config_file,
+                               cmd);
         }
     };
 
-    Config parse(int argc, char* argv[]);
+    CLI parse(int argc, char* argv[]);
 }  // namespace gitrepo::cli

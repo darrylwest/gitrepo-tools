@@ -22,7 +22,7 @@ namespace helpers {
     }
 }
 
-gitrepo::cli::Config call_parse_cli(const std::vector<std::string>& args) {
+gitrepo::cli::CLI call_parse_cli(const std::vector<std::string>& args) {
     std::vector<char*> argv;
     argv.push_back(const_cast<char*>("gitrepo-tools"));
 
@@ -39,49 +39,49 @@ gitrepo::cli::Config call_parse_cli(const std::vector<std::string>& args) {
 TEST_CASE("Test CLI", "[cli][parse-no-params]") {
     std::vector<char*> argv;
 
-    auto config = call_parse_cli({});
+    auto ctx = call_parse_cli({});
 
     INFO("zero command line params");
-    REQUIRE(config.repo_home == ".gitrepo-tools");
-    REQUIRE(config.config_file == "config.json");
-    REQUIRE(config.cmd == "pull");
-    REQUIRE(config.skip == false);
+    REQUIRE(ctx.repo_home == ".gitrepo-tools");
+    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.cmd == "pull");
+    REQUIRE(ctx.skip == false);
 }
 
 TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
-    const auto config = call_parse_cli({"gitrepo-tools", "--repo-home", "./" });
+    const auto ctx = call_parse_cli({"gitrepo-tools", "--repo-home", "./" });
 
-    spdlog::debug("repo home in command line params: {}", config.repo_home);
+    spdlog::debug("repo home in command line params: {}", ctx.repo_home);
 
     INFO("repo home in command line params");
-    REQUIRE(config.repo_home == "./");
-    REQUIRE(config.config_file == "config.json");
-    REQUIRE(config.cmd == "pull");
-    REQUIRE(config.skip == false);
+    REQUIRE(ctx.repo_home == "./");
+    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.cmd == "pull");
+    REQUIRE(ctx.skip == false);
 }
 
-TEST_CASE("Test CLI", "[cli][parse-config]") {
-    const auto config = call_parse_cli({"gitrepo-tools", "--config", "cfg.toml" });
+TEST_CASE("Test CLI", "[cli][parse-ctx]") {
+    const auto ctx = call_parse_cli({"gitrepo-tools", "--config", "cfg.toml" });
 
-    spdlog::debug("repo home in command line params: {}", config.repo_home);
+    spdlog::debug("repo home in command line params: {}", ctx.repo_home);
 
     INFO("repo home in command line params");
-    REQUIRE(config.repo_home == ".gitrepo-tools");
-    REQUIRE(config.config_file == "cfg.toml");
-    REQUIRE(config.cmd == "pull");
-    REQUIRE(config.skip == false);
+    REQUIRE(ctx.repo_home == ".gitrepo-tools");
+    REQUIRE(ctx.config_file == "cfg.toml");
+    REQUIRE(ctx.cmd == "pull");
+    REQUIRE(ctx.skip == false);
 }
 
 TEST_CASE("Test CLI", "[cli][parse-command]") {
-    const auto config = call_parse_cli({"gitrepo-tools", "--command", "push" });
+    const auto ctx = call_parse_cli({"gitrepo-tools", "--command", "push" });
 
-    spdlog::debug("repo home in command line params: {}", config.repo_home);
+    spdlog::debug("repo home in command line params: {}", ctx.repo_home);
 
     INFO("repo home in command line params");
-    REQUIRE(config.repo_home == ".gitrepo-tools");
-    REQUIRE(config.config_file == "config.json");
-    REQUIRE(config.cmd == "push");
-    REQUIRE(config.skip == false);
+    REQUIRE(ctx.repo_home == ".gitrepo-tools");
+    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.cmd == "push");
+    REQUIRE(ctx.skip == false);
 }
 
 TEST_CASE("Test CLI", "[cli][parse-help]") {
@@ -91,13 +91,13 @@ TEST_CASE("Test CLI", "[cli][parse-help]") {
             REQUIRE(code == 0);
         };
 
-        const auto config = call_parse_cli({"gitrepo-tools", "--help", });
+        const auto ctx = call_parse_cli({"gitrepo-tools", "--help", });
 
         INFO("repo home in command line params");
-        REQUIRE(config.repo_home == ".gitrepo-tools");
-        REQUIRE(config.config_file == "config.json");
-        REQUIRE(config.cmd == "pull");
-        REQUIRE(config.skip == true);
+        REQUIRE(ctx.repo_home == ".gitrepo-tools");
+        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.cmd == "pull");
+        REQUIRE(ctx.skip == true);
     });
 
     INFO(output);
@@ -111,13 +111,13 @@ TEST_CASE("Test CLI", "[cli][parse-version]") {
             REQUIRE(code == 0);
         };
 
-        const auto config = call_parse_cli({"gitrepo-tools", "--version", });
+        const auto ctx = call_parse_cli({"gitrepo-tools", "--version", });
 
         INFO("repo home in command line params");
-        REQUIRE(config.repo_home == ".gitrepo-tools");
-        REQUIRE(config.config_file == "config.json");
-        REQUIRE(config.cmd == "pull");
-        REQUIRE(config.skip == true);
+        REQUIRE(ctx.repo_home == ".gitrepo-tools");
+        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.cmd == "pull");
+        REQUIRE(ctx.skip == true);
     });
 
     INFO(output);
@@ -131,13 +131,13 @@ TEST_CASE("Test CLI", "[cli][parse-bad-param]") {
             REQUIRE(code == 0);
         };
 
-        const auto config = call_parse_cli({"gitrepo-tools", "--bad-flag", });
+        const auto ctx = call_parse_cli({"gitrepo-tools", "--bad-flag", });
 
         INFO("repo home in command line params");
-        REQUIRE(config.repo_home == ".gitrepo-tools");
-        REQUIRE(config.config_file == "config.json");
-        REQUIRE(config.cmd == "pull");
-        REQUIRE(config.skip == true);
+        REQUIRE(ctx.repo_home == ".gitrepo-tools");
+        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.cmd == "pull");
+        REQUIRE(ctx.skip == true);
     });
 
     INFO(output);
