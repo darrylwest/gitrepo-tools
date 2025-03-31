@@ -89,14 +89,17 @@ set(DEPENDENT_LIBRARIES
 add_executable(gitrepo-tools
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/cli.cpp
+    ${SRC_DIR}/config.cpp
     ${SRC_DIR}/tools.cpp
 )
 
 add_executable(unit_tests 
     tests/main_unit.cpp
     tests/cli_tests.cpp
+    tests/config_tests.cpp
     tests/tools_tests.cpp
     ${SRC_DIR}/cli.cpp
+    ${SRC_DIR}/config.cpp
     ${SRC_DIR}/tools.cpp
 
 )

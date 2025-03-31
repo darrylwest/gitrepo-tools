@@ -5,6 +5,7 @@
 #include <spdlog/spdlog.h>
 
 #include <gitrepo/cli.hpp>
+#include <gitrepo/config.hpp>
 // #include <gitrepo/tools.hpp>
 // #include <domainkeys/keys.hpp>
 // #include <quickkv/quickkv.hpp>
@@ -20,7 +21,9 @@ int main(int argc, char **argv) {
 
     spdlog::info("context: {}", ctx.to_string());
 
-    // now scan the folders under repo home and update the database
+    auto config = gitrepo::config::parse_config(ctx);
+
+    spdlog::info("config home: {}", config.home_folder);
 
     // process the command on each repo, one thread per process
 
