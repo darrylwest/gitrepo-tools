@@ -13,7 +13,7 @@ namespace gitrepo::cli {
     // set the config defaults here
     struct CLI {
         std::string repo_home = ".gitrepo-tools";  // store date, logs, config
-        std::string config_file = "config.json";  // look in repo_home, ~/.config/gitrepo-tools, etc
+        std::string config_file = "config/config.json";  // look in repo_home, ~/.config/gitrepo-tools, etc
         std::string cmd = "pull";
         bool skip = false;
 

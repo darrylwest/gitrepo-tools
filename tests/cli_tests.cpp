@@ -43,7 +43,7 @@ TEST_CASE("Test CLI", "[cli][parse-no-params]") {
 
     INFO("zero command line params");
     REQUIRE(ctx.repo_home == ".gitrepo-tools");
-    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.config_file == "config/config.json");
     REQUIRE(ctx.cmd == "pull");
     REQUIRE(ctx.skip == false);
 }
@@ -55,7 +55,7 @@ TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
 
     INFO("repo home in command line params");
     REQUIRE(ctx.repo_home == "./");
-    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.config_file == "config/config.json");
     REQUIRE(ctx.cmd == "pull");
     REQUIRE(ctx.skip == false);
 }
@@ -79,7 +79,7 @@ TEST_CASE("Test CLI", "[cli][parse-command]") {
 
     INFO("repo home in command line params");
     REQUIRE(ctx.repo_home == ".gitrepo-tools");
-    REQUIRE(ctx.config_file == "config.json");
+    REQUIRE(ctx.config_file == "config/config.json");
     REQUIRE(ctx.cmd == "push");
     REQUIRE(ctx.skip == false);
 }
@@ -95,7 +95,7 @@ TEST_CASE("Test CLI", "[cli][parse-help]") {
 
         INFO("repo home in command line params");
         REQUIRE(ctx.repo_home == ".gitrepo-tools");
-        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.config_file == "config/config.json");
         REQUIRE(ctx.cmd == "pull");
         REQUIRE(ctx.skip == true);
     });
@@ -115,7 +115,7 @@ TEST_CASE("Test CLI", "[cli][parse-version]") {
 
         INFO("repo home in command line params");
         REQUIRE(ctx.repo_home == ".gitrepo-tools");
-        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.config_file == "config/config.json");
         REQUIRE(ctx.cmd == "pull");
         REQUIRE(ctx.skip == true);
     });
@@ -135,7 +135,7 @@ TEST_CASE("Test CLI", "[cli][parse-bad-param]") {
 
         INFO("repo home in command line params");
         REQUIRE(ctx.repo_home == ".gitrepo-tools");
-        REQUIRE(ctx.config_file == "config.json");
+        REQUIRE(ctx.config_file == "config/config.json");
         REQUIRE(ctx.cmd == "pull");
         REQUIRE(ctx.skip == true);
     });
