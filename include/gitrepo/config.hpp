@@ -6,8 +6,7 @@
 
 #include <gitrepo/cli.hpp>
 #include <string>
-#include <set>
-#include <filesystem>
+#include <vector>
 
 namespace gitrepo::config {
     namespace fs = std::filesystem;
@@ -15,7 +14,7 @@ namespace gitrepo::config {
     struct Config {
         std::string version;
         std::string home_folder;
-        std::set<fs::path> excludes;
+        std::vector<std::string> excludes;
         bool verbose;
     };
 

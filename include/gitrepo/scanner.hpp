@@ -5,12 +5,11 @@
 #pragma once
 
 #include <filesystem>
-#include <vector>
 #include <gitrepo/config.hpp>
+#include <vector>
 
 namespace gitrepo::scanner {
     namespace fs = std::filesystem;
 
     std::vector<fs::path> scan_folders(const config::Config& config);
-}
-
+}  // namespace gitrepo::scanner

@@ -43,7 +43,8 @@ namespace gitrepo::config {
             if (json_data.contains("excludes") && json_data["excludes"].is_array()) {
                 for (const auto& item : json_data["excludes"]) {
                     if (item.is_string()) {
-                        config.excludes.insert(std::filesystem::path(item.get<std::string>()));
+                        config.excludes.emplace_back(item.get<std::string>());
+                        spdlog::info("excludes '{}'", item.get<std::string>());
                     }
                 }
             }
