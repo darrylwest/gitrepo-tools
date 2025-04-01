@@ -4,7 +4,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() function
 
 #include <catch2/catch_all.hpp>
-#include <gitrepo/tools.hpp>
+#include <gitrepo/version.hpp>
 #include <vendor/ansi_colors.hpp>
 #include <spdlog/spdlog.h>
 #include <print>
@@ -25,8 +25,8 @@ struct MainTestSetup {
     ~MainTestSetup() {
         using namespace colors;
         timer.stop();
-        const auto version = gitrepo::tools::VERSION;
-        std::println("{}Tests complete, version: {}", bright::cyan, version);
+        const auto version = gitrepo::Version();
+        std::println("{}Tests complete, version: {}", bright::cyan, version.to_string());
         timer.show_duration(": ");
         std::puts(colors::reset.c_str());
     }

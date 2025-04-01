@@ -5,6 +5,7 @@
 #include <cxxopts.hpp>
 #include <gitrepo/cli.hpp>
 #include <gitrepo/tools.hpp>
+#include <gitrepo/version.hpp>
 
 namespace gitrepo::cli {
 
@@ -27,7 +28,8 @@ namespace gitrepo::cli {
             auto result = options.parse(argc, argv);
 
             if (result.count("version")) {
-                std::cout << argv[0] << " Version: " << gitrepo::tools::VERSION << '\n';
+                const auto version = gitrepo::Version();
+                std::cout << argv[0] << " Version: " << version << '\n';
                 ctx.skip = true;
             }
 

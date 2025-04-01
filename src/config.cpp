@@ -16,10 +16,9 @@ namespace gitrepo::config {
     Config parse_config(const cli::CLI& ctx) {
         Config config;
 
-        fs::path user_home = std::getenv("HOME");
         fs::path repo_home = ctx.repo_home;  // Assuming ctx.repo_home is convertible
         fs::path config_file = ctx.config_file;
-        fs::path path = user_home / repo_home / config_file;
+        fs::path path = repo_home / config_file;
 
         // parse the file
         try {

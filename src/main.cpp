@@ -7,10 +7,7 @@
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
 #include <gitrepo/scanner.hpp>
-#include <gitrepo/tools.hpp>
-// #include <gitrepo/tools.hpp>
-// #include <domainkeys/keys.hpp>
-// #include <quickkv/quickkv.hpp>
+
 
 int main(int argc, char **argv) {
     spdlog::set_level(spdlog::level::info);

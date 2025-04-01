@@ -50,7 +50,7 @@ do
             shift
         ;;
         run)
-            ./build/$project --repo-home "`pwd`/"
+            ./build/$project --repo-home "$HOME/.gitrepo-tools"
 
             shift
         ;;
