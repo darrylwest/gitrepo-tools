@@ -16,9 +16,10 @@ namespace gitrepo::config {
     Config parse_config(const cli::CLI& ctx) {
         Config config;
 
+        fs::path user_home = std::getenv("HOME");
         fs::path repo_home = ctx.repo_home;  // Assuming ctx.repo_home is convertible
         fs::path config_file = ctx.config_file;
-        fs::path path = repo_home / config_file;
+        fs::path path = user_home / repo_home / config_file;
 
         // parse the file
         try {
@@ -44,7 +45,9 @@ namespace gitrepo::config {
                 for (const auto& item : json_data["excludes"]) {
                     if (item.is_string()) {
                         config.excludes.emplace_back(item.get<std::string>());
-                        spdlog::info("excludes '{}'", item.get<std::string>());
+                        if (config.verbose) {
+                            spdlog::info("excludes '{}'", item.get<std::string>());
+                        }
                     }
                 }
             }

@@ -50,7 +50,7 @@ do
             shift
         ;;
         run)
-            ./build/$project -r ./
+            ./build/$project --repo-home "`pwd`/"
 
             shift
         ;;

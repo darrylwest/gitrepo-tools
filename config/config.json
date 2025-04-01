@@ -1,6 +1,6 @@
 {
-    "version": "0.1.0-100",
+    "version": "0.1.2-101",
     "home_folder": "raincity",
-    "excludes": [ "build/_deps", "/misc", "/swift-projects", "/python-projects", "/elixir-projects" ],
+    "excludes": [ "/_deps", "dep-cache", "misc", "swift-projects", "python-projects", "elixir-projects" ],
     "verbose": false
 }
