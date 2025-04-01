@@ -6,6 +6,8 @@
 
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
+#include <gitrepo/scanner.hpp>
+#include <gitrepo/tools.hpp>
 // #include <gitrepo/tools.hpp>
 // #include <domainkeys/keys.hpp>
 // #include <quickkv/quickkv.hpp>
@@ -26,6 +28,8 @@ int main(int argc, char **argv) {
     spdlog::info("config home: {}", config.home_folder);
 
     // process the command on each repo, one thread per process
+    auto folders = gitrepo::scanner::scan_folders(config);
+    spdlog::info("folder count: {}", folders.size());
 
     return 0;
 }
