@@ -21,11 +21,7 @@ TEST_CASE("Scanner Tests", "[scanner]") {
 
     auto config = gitrepo::config::parse_config(ctx);
     // spdlog::set_level(spdlog::level::info);
-    fs::path home = std::getenv("HOME");
-    fs::path toppath = home / config.home_folder;
-    std::string toppath_str = toppath.string();
-    spdlog::info("home: {}", toppath_str);
-    auto folders = gitrepo::scanner::scan_folders(toppath);
+    auto folders = gitrepo::scanner::scan_folders(config);
     spdlog::info("repo count: {}", folders.size());
 
     INFO("repo count should be > 5");

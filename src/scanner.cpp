@@ -5,12 +5,13 @@
 #include <gitrepo/scanner.hpp>
 #include <filesystem>
 #include <vector>
+#include <set>
 #include <spdlog/spdlog.h>
 
 namespace gitrepo::scanner {
     namespace fs = std::filesystem;
 
-    void scan(const fs::path& folder, std::vector<fs::path>& folders) {
+    void scan(const fs::path& folder, std::vector<fs::path>& folders, const std::set<fs::path>& excludes) {
         for (auto& entry : fs::directory_iterator(folder)) {
             auto file = fs::path(entry).append(".git");
             if (fs::exists(file)) {
@@ -19,16 +20,19 @@ namespace gitrepo::scanner {
                 folders.push_back(entry);
             }
 
-            if (fs::is_directory(entry)) {
-                scan(entry, folders);
+            if (fs::is_directory(entry) && excludes.find(entry) == excludes.end()) {
+                scan(entry, folders, excludes);
             }
         }
     }
 
-    std::vector<fs::path> scan_folders(const fs::path& folder) {
+    std::vector<fs::path> scan_folders(const config::Config& config) {
+        fs::path home = std::getenv("HOME");
+        auto folder = fs::path(home / config.home_folder);
+        std::set<fs::path> excludes;
         std::vector<fs::path> folders;
 
-        scan(folder, folders);
+        scan(folder, folders, excludes);
 
         return folders;
     }

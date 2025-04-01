@@ -1,5 +1,6 @@
 {
     "version": "0.1.0-100",
     "home_folder": "raincity",
+    "excludes": [ "misc", "swift-projects", "python-projects", "elixir-projects" ],
     "verbose": false
 }

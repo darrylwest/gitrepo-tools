@@ -21,6 +21,7 @@ TEST_CASE("Config Tests", "[config]") {
     REQUIRE(config.version >= "0.1.0-100");
     REQUIRE(config.home_folder == "raincity");
     REQUIRE(config.verbose == false);
+    REQUIRE(config.excludes.size() > 1);
 
     // logging
     // skip folders

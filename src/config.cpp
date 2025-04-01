@@ -39,6 +39,15 @@ namespace gitrepo::config {
             config.verbose = json_data.at("verbose").get<decltype(config.verbose)>();
             // Add more fields as needed...
 
+            // Check if "excludes" key exists and is an array
+            if (json_data.contains("excludes") && json_data["excludes"].is_array()) {
+                for (const auto& item : json_data["excludes"]) {
+                    if (item.is_string()) {
+                        config.excludes.insert(std::filesystem::path(item.get<std::string>()));
+                    }
+                }
+            }
+
         } catch (const nlohmann::json::exception& e) {
             spdlog::error("JSON parsing error: {}", e.what());
         } catch (const std::exception& e) {

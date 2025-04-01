@@ -6,10 +6,11 @@
 
 #include <filesystem>
 #include <vector>
+#include <gitrepo/config.hpp>
 
 namespace gitrepo::scanner {
     namespace fs = std::filesystem;
 
-    std::vector<fs::path> scan_folders(const fs::path& folder);
+    std::vector<fs::path> scan_folders(const config::Config& config);
 }
 

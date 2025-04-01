@@ -6,11 +6,16 @@
 
 #include <gitrepo/cli.hpp>
 #include <string>
+#include <set>
+#include <filesystem>
 
 namespace gitrepo::config {
+    namespace fs = std::filesystem;
+
     struct Config {
         std::string version;
         std::string home_folder;
+        std::set<fs::path> excludes;
         bool verbose;
     };
 
