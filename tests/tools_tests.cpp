@@ -49,9 +49,10 @@ TEST_CASE("Tools tests", "[tools][get_remote_url]") {
 }
 
 TEST_CASE("Tools tests", "[tools][get_status]") {
+    spdlog::set_level(spdlog::level::info);
     const auto status = gitrepo::tools::get_status(test_repo);
 
-    spdlog::info("statu: {}", status);
+    spdlog::info("status: {}", status);
 
     REQUIRE(status == "dirty");
 }
