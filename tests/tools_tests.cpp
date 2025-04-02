@@ -7,6 +7,10 @@
 
 #include <spdlog//spdlog.h>
 
+// namespace fs = std::filesystem;
+
+const std::string test_repo = "tests/test-repo";
+
 TEST_CASE("Tools tests", "[version]") {
     const auto vers = gitrepo::Version();
     REQUIRE(vers.major == 0);
@@ -30,7 +34,7 @@ TEST_CASE("Tools tests", "[tools][repo-struct]") {
 
 TEST_CASE("Tools tests", "[tools][get_active_branch]") {
     spdlog::set_level(spdlog::level::info);
-    const auto branch = gitrepo::tools::get_active_branch(".");
+    const auto branch = gitrepo::tools::get_active_branch(test_repo);
 
     spdlog::info("active branch: {}", branch);
 

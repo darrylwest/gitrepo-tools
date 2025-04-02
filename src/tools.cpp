@@ -11,8 +11,8 @@
 namespace gitrepo::tools {
     namespace fs = std::filesystem;
 
-    const auto GIT_HEAD = fs::path(".git/HEAD");
-    const auto GIT_CONFIG = fs::path(".git/config");
+    const auto GIT_HEAD = fs::path("HEAD");
+    const auto GIT_CONFIG = fs::path("config");
 
     std::string get_active_branch(const std::string& repo_root) {
         fs::path head_path(repo_root / GIT_HEAD);
