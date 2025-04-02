@@ -17,7 +17,7 @@ namespace gitrepo::tools {
     const auto GIT_HEAD = fs::path("HEAD");
     const auto GIT_CONFIG = fs::path("config");
     constexpr auto CLEAN = "clean";
-    // constexpr auto DIRTY = "dirty";
+    constexpr auto DIRTY = "dirty";
 
     std::string get_active_branch(const std::string& repo_root) {
         fs::path head_path(repo_root / GIT_HEAD);
@@ -63,25 +63,29 @@ namespace gitrepo::tools {
 
     std::string exec(const std::string& repo_root, const std::string& command) {
         std::array<char, 256> buffer{};
-        std::string cmd = "git -c " + repo_root + " " + command;
+        std::string cmd = "git -C " + repo_root + " " + command;
         std::string result;
 
-        std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-        if (!pipe) {
+        FILE *fp;
+        fp = popen(cmd.c_str(), "r");
+        if (!fp) {
             spdlog::error("popen() failed!");
             throw std::runtime_error("popen() failed!");
         }
 
-        while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        while (fgets(buffer.data(), buffer.size(), fp) != nullptr) {
             result += buffer.data();
         }
+
+        pclose(fp);
 
         return result;
     }
 
     std::string get_status(const std::string& repo_root) {
         spdlog::debug("get_status: {}", repo_root);
-        return CLEAN;
+        auto status = exec(repo_root, "status");
+        return status.empty() ? CLEAN : DIRTY;
     }
 
     GitRepo scan_repo(const std::string& path) {

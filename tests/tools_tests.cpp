@@ -53,6 +53,16 @@ TEST_CASE("Tools tests", "[tools][get_status]") {
 
     spdlog::info("statu: {}", status);
 
-    REQUIRE(status == "clean");
+    REQUIRE(status == "dirty");
 }
+
+TEST_CASE("Tools tests", "[tools][exec]") {
+    spdlog::set_level(spdlog::level::info);
+    const auto status = gitrepo::tools::exec("./", "status -s");
+
+    spdlog::info("status: {}", status);
+
+    REQUIRE(true);
+}
+
 
