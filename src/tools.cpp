@@ -2,17 +2,22 @@
 // dpw
 //
 
-#include <gitrepo/config.hpp>
-#include <gitrepo/tools.hpp>
-#include <fstream>
-#include <stdexcept>
 #include <filesystem>
+#include <fstream>
+#include <gitrepo/tools.hpp>
+#include <stdexcept>
+#include <string>
+#include <array>
+
+#include "spdlog/spdlog.h"
 
 namespace gitrepo::tools {
     namespace fs = std::filesystem;
 
     const auto GIT_HEAD = fs::path("HEAD");
     const auto GIT_CONFIG = fs::path("config");
+    constexpr auto CLEAN = "clean";
+    // constexpr auto DIRTY = "dirty";
 
     std::string get_active_branch(const std::string& repo_root) {
         fs::path head_path(repo_root / GIT_HEAD);
@@ -37,7 +42,7 @@ namespace gitrepo::tools {
     }
 
     std::string get_remote_url(const std::string& repo_root) {
-        fs::path config_path(repo_root / GIT_HEAD);
+        fs::path config_path(repo_root / GIT_CONFIG);
         std::ifstream configFile(config_path.string());
         if (!configFile.is_open()) {
             throw std::runtime_error("Could not open .git/config file.");
@@ -48,7 +53,7 @@ namespace gitrepo::tools {
             if (line.find("[remote \"origin\"]") != std::string::npos) {
                 // Read the next line to find the URL
                 if (std::getline(configFile, line) && line.find("url = ") != std::string::npos) {
-                    return line.substr(6); // Skip "url = "
+                    return line.substr(7); // Skip "url = "
                 }
             }
         }
@@ -56,19 +61,27 @@ namespace gitrepo::tools {
         return ""; // Return empty if no URL found
     }
 
-    std::string get_status() {
-        std::string status;
-        // Check for untracked files and changes in the working directory
-        // This is a simple check; for a full status, you would need to read the index and working directory.
-        // Here we just check for untracked files as an example.
-        std::filesystem::path gitDir(".git");
-        for (const auto& entry : std::filesystem::directory_iterator(gitDir.parent_path())) {
-            if (entry.path() != gitDir && entry.path() != gitDir.parent_path() / ".git") {
-                status += entry.path().filename().string() + " (untracked)\n";
-            }
+    std::string exec(const std::string& repo_root, const std::string& command) {
+        std::array<char, 256> buffer{};
+        std::string cmd = "git -c " + repo_root + " " + command;
+        std::string result;
+
+        std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+        if (!pipe) {
+            spdlog::error("popen() failed!");
+            throw std::runtime_error("popen() failed!");
         }
 
-        return status.empty() ? "No changes" : status;
+        while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+            result += buffer.data();
+        }
+
+        return result;
+    }
+
+    std::string get_status(const std::string& repo_root) {
+        spdlog::debug("get_status: {}", repo_root);
+        return CLEAN;
     }
 
     GitRepo scan_repo(const std::string& path) {

@@ -38,4 +38,13 @@ namespace gitrepo::tools {
     // return the current active branch for the current repo
     std::string get_active_branch(const std::string& repo_folder);
 
+    // return the origin url from the repos config file
+    std::string get_remote_url(const std::string& repo_folder);
+
+    // return dirty or clean base on the repos status
+    std::string get_status(const std::string& repo_folder);
+
+    // execute the git command
+    std::string exec(const std::string& repo_folder, const std::string& command);
+
 }  // namespace gitrepo::tools

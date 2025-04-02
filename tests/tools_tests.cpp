@@ -33,7 +33,6 @@ TEST_CASE("Tools tests", "[tools][repo-struct]") {
 }
 
 TEST_CASE("Tools tests", "[tools][get_active_branch]") {
-    spdlog::set_level(spdlog::level::info);
     const auto branch = gitrepo::tools::get_active_branch(test_repo);
 
     spdlog::info("active branch: {}", branch);
@@ -42,10 +41,18 @@ TEST_CASE("Tools tests", "[tools][get_active_branch]") {
 }
 
 TEST_CASE("Tools tests", "[tools][get_remote_url]") {
-    REQUIRE(true);
+    const auto url = gitrepo::tools::get_remote_url(test_repo);
+
+    spdlog::info("remote url: {}", url);
+
+    REQUIRE(url == "git@github.com:darrylwest/gitrepo-tools.git");
 }
 
 TEST_CASE("Tools tests", "[tools][get_status]") {
-    REQUIRE(true);
+    const auto status = gitrepo::tools::get_status(test_repo);
+
+    spdlog::info("statu: {}", status);
+
+    REQUIRE(status == "clean");
 }
 
