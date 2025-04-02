@@ -14,8 +14,9 @@ namespace gitrepo::scanner {
     namespace fs = std::filesystem;
 
     bool should_exclude(const std::string& path, const std::vector<std::string>& excludes) {
-        return std::ranges::any_of(excludes,
-                                   [&path](const std::string& exclude) { return path.contains(exclude); });
+        return std::ranges::any_of(excludes, [&path](const std::string& exclude) {
+            return path.contains(exclude);
+        });
     }
 
     void scan(const fs::path& folder, std::vector<fs::path>& folders,

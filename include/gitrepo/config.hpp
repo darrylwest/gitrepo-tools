@@ -9,8 +9,6 @@
 #include <vector>
 
 namespace gitrepo::config {
-    namespace fs = std::filesystem;
-
     struct Config {
         std::string version;
         std::string home_folder;

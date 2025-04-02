@@ -35,4 +35,7 @@ namespace gitrepo::tools {
     // run a command and return the response
     CommandResponse run_command(const GitRepo& repo, const std::string& command);
 
+    // return the current active branch for the current repo
+    std::string get_active_branch(const std::string& repo_folder);
+
 }  // namespace gitrepo::tools

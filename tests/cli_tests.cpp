@@ -36,7 +36,7 @@ gitrepo::cli::CLI call_parse_cli(const std::vector<std::string>& args) {
     return gitrepo::cli::parse(argc, argv.data());
 }
 
-TEST_CASE("Test CLI", "[cli][parse-no-params]") {
+TEST_CASE("CLI tests", "[cli][parse-no-params]") {
     std::vector<char*> argv;
 
     auto ctx = call_parse_cli({});
@@ -48,7 +48,7 @@ TEST_CASE("Test CLI", "[cli][parse-no-params]") {
     REQUIRE(ctx.skip == false);
 }
 
-TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
+TEST_CASE("CLI tests", "[cli][parse-repo_home]") {
     const auto ctx = call_parse_cli({"gitrepo-tools", "--repo-home", "./" });
 
     spdlog::debug("repo home in command line params: {}", ctx.repo_home);
@@ -60,7 +60,7 @@ TEST_CASE("Test CLI", "[cli][parse-repo_home]") {
     REQUIRE(ctx.skip == false);
 }
 
-TEST_CASE("Test CLI", "[cli][parse-ctx]") {
+TEST_CASE("CLI tests", "[cli][parse-ctx]") {
     const auto ctx = call_parse_cli({"gitrepo-tools", "--config", "cfg.toml" });
 
     spdlog::debug("repo home in command line params: {}", ctx.repo_home);
