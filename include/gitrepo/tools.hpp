@@ -6,9 +6,9 @@
 
 #include <filesystem>
 #include <gitrepo/cli.hpp>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-#include <nlohmann/json.hpp>
 
 namespace gitrepo::tools {
 
@@ -22,14 +22,8 @@ namespace gitrepo::tools {
 
         // Member function to convert GitRepo to JSON
         nlohmann::json to_json() const {
-            return nlohmann::json{
-                {"name", name},
-                {"branch", branch},
-                {"status", status},
-                {"parent", parent},
-                {"url", url},
-                {"enabled", enabled}
-            };
+            return nlohmann::json{{"name", name},     {"branch", branch}, {"status", status},
+                                  {"parent", parent}, {"url", url},       {"enabled", enabled}};
         }
     };
 

@@ -4,15 +4,14 @@
 
 #include <spdlog/spdlog.h>
 
+#include <future>
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
 #include <gitrepo/scanner.hpp>
 #include <gitrepo/tools.hpp>
-#include <future>
 #include <vector>
 
-
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     spdlog::set_level(spdlog::level::info);
 
     auto ctx = gitrepo::cli::parse(argc, argv);
@@ -27,21 +26,33 @@ int main(int argc, char **argv) {
 
     spdlog::info("config home: {}", config.home_folder);
 
-    // process the command on each repo, one thread per process
-    auto folders = gitrepo::scanner::scan_folders(config);
-    spdlog::info("folder count: {}", folders.size());
+    std::vector<gitrepo::tools::GitRepo> repos;
 
-    std::vector<std::future<gitrepo::tools::CommandResponse>> jobs;
-    jobs.reserve(folders.size());
-    for (const auto& folder : folders) {
-        spdlog::debug("folder: {}", folder.c_str());
-        const auto repo = gitrepo::tools::scan_repo(folder);
-        spdlog::info("repo: {}", repo.to_json().dump());
+    if (ctx.skip_scan) {
+        // read from the database
+        spdlog::info("skip scan and read the repo database");
+    } else {
+        auto folders = gitrepo::scanner::scan_folders(config);
+        spdlog::info("folder count: {}", folders.size());
 
-        if (repo.status != "clean" || repo.url.empty()) {
-            continue;
+        for (const auto& folder : folders) {
+            spdlog::debug("folder: {}", folder.c_str());
+            const auto repo = gitrepo::tools::scan_repo(folder);
+            spdlog::info("repo: {}", repo.to_json().dump());
+
+            if (repo.status != "clean" || repo.url.empty()) {
+                continue;
+            }
+
+            repos.emplace_back(repo);
         }
 
+        // now write them out to the data file...
+    }
+
+    std::vector<std::future<gitrepo::tools::CommandResponse>> jobs;
+    jobs.reserve(repos.size());
+    for (const auto& repo : repos) {
         // execute the command in a separate thread
         jobs.push_back(std::async(std::launch::async, gitrepo::tools::run_job, repo, ctx.cmd));
     }

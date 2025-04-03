@@ -21,6 +21,7 @@ namespace gitrepo::cli {
                 ( "h,help", "Show this help")
                 ("r,repo-home", "Set the repo home folder", cxxopts::value<std::string>())
                 ("c,command", "The command to run on all repos", cxxopts::value<std::string>())
+                ("s,skip-scan", "skip file scan and read from data file", cxxopts::value<bool>())
                 ( "config", "The configuration file", cxxopts::value<std::string>()
             );
 
@@ -44,6 +45,10 @@ namespace gitrepo::cli {
 
             if (result.count("command")) {
                 ctx.cmd = result["command"].as<std::string>();
+            }
+
+            if (result.count("skip-scan")) {
+                ctx.skip_scan = true;
             }
 
             if (result.count("config")) {

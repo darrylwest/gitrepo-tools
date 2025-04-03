@@ -2,12 +2,12 @@
 // dpw
 //
 
+#include <array>
 #include <filesystem>
 #include <fstream>
 #include <gitrepo/tools.hpp>
 #include <stdexcept>
 #include <string>
-#include <array>
 
 #include "spdlog/spdlog.h"
 
@@ -29,7 +29,7 @@ namespace gitrepo::tools {
         std::string line;
         if (std::getline(headFile, line)) {
             if (line.find("ref:") == 0) {
-                std::string branch = line.substr(5); // Skip "ref: "
+                std::string branch = line.substr(5);  // Skip "ref: "
 
                 size_t last = branch.find_last_of('/');
                 if (last != std::string::npos) {
@@ -38,7 +38,7 @@ namespace gitrepo::tools {
             }
         }
 
-        return ""; // Return empty if no branch found
+        return "";  // Return empty if no branch found
     }
 
     std::string get_remote_url(const std::string& repo_root) {
@@ -53,12 +53,12 @@ namespace gitrepo::tools {
             if (line.find("[remote \"origin\"]") != std::string::npos) {
                 // Read the next line to find the URL
                 if (std::getline(configFile, line) && line.find("url = ") != std::string::npos) {
-                    return line.substr(7); // Skip "url = "
+                    return line.substr(7);  // Skip "url = "
                 }
             }
         }
 
-        return ""; // Return empty if no URL found
+        return "";  // Return empty if no URL found
     }
 
     std::string exec(const std::string& repo_root, const std::string& command) {
@@ -66,7 +66,7 @@ namespace gitrepo::tools {
         std::string cmd = "git -C " + repo_root + " " + command;
         std::string result;
 
-        FILE *fp;
+        FILE* fp;
         fp = popen(cmd.c_str(), "r");
         if (!fp) {
             spdlog::error("popen() failed!");
@@ -119,4 +119,4 @@ namespace gitrepo::tools {
 
         return response;
     }
-}
+}  // namespace gitrepo::tools

@@ -15,6 +15,7 @@ namespace gitrepo::cli {
         std::string repo_home = ".gitrepo-tools";        // store date, logs, config
         std::string config_file = "config/config.json";  // look in repo_home, ~/.config/gitrepo-tools, etc
         std::string cmd = "pull";
+        bool skip_scan = false;
         bool skip = false;
 
         // show the important attributes
