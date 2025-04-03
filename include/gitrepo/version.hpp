@@ -14,7 +14,7 @@ namespace gitrepo {
         int major = 0;
         int minor = 2;
         int patch = 5;
-        int build = 114;
+        int build = 115;
 
         friend std::ostream& operator<<(std::ostream& os, const Version v) {
             // better to use <format> but it breaks on linux and fmt broken on darwin

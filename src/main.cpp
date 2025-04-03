@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         const auto repo = gitrepo::tools::scan_repo(folder);
         spdlog::info("repo: {}", repo.to_json().dump());
 
-        if (repo.status != "clean") {
+        if (repo.status != "clean" || repo.url.empty()) {
             continue;
         }
 
