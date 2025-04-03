@@ -3,15 +3,19 @@
 //
 
 #include <spdlog/spdlog.h>
-
+#include <filesystem>
+#include <fstream>
 #include <future>
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
 #include <gitrepo/scanner.hpp>
 #include <gitrepo/tools.hpp>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 int main(int argc, char** argv) {
+    using json = nlohmann::json;
+
     spdlog::set_level(spdlog::level::info);
 
     auto ctx = gitrepo::cli::parse(argc, argv);
@@ -27,6 +31,8 @@ int main(int argc, char** argv) {
     spdlog::info("config home: {}", config.home_folder);
 
     std::vector<gitrepo::tools::GitRepo> repos;
+    auto j = json::array();
+    auto db_filename = ctx.repo_home + "/data/repos.db";
 
     if (ctx.skip_scan) {
         // read from the database
@@ -45,9 +51,17 @@ int main(int argc, char** argv) {
             }
 
             repos.emplace_back(repo);
+            j.push_back(repo.to_json());
         }
 
         // now write them out to the data file...
+        std::ofstream file(db_filename);
+        if (!file) {
+            spdlog::error("Failed to open file {}", db_filename);
+        } else {
+            file << j.dump(4);
+            file.close();
+        }
     }
 
     std::vector<std::future<gitrepo::tools::CommandResponse>> jobs;
