@@ -54,6 +54,11 @@ do
 
             shift
         ;;
+        skip)
+            ./build/$project --repo-home "$HOME/.gitrepo-tools" --skip-scan
+
+            shift
+        ;;
         format)
             clang-format -i include/gitrepo/*.hpp src/*.cpp
             git status -s

@@ -31,13 +31,36 @@ int main(int argc, char** argv) {
     spdlog::info("config home: {}", config.home_folder);
 
     std::vector<gitrepo::tools::GitRepo> repos;
-    auto j = json::array();
     auto db_filename = ctx.repo_home + "/data/repos.db";
 
     if (ctx.skip_scan) {
         // read from the database
-        spdlog::info("skip scan and read the repo database");
+        spdlog::info("skip scan and read the repo database: {}", db_filename);
+        std::ifstream json_file(db_filename);
+        if (!json_file || !json_file.is_open()) {
+            spdlog::error("Failed to open repo database {}", db_filename);
+            return 1;
+        }
+        json jdata;
+        json_file >> jdata;
+        json_file.close();
+
+        // now create the repos vector
+        for (const json& item : jdata) {
+            gitrepo::tools::GitRepo repo;
+
+            repo.name = item["name"].get<std::string>();
+            repo.branch = item["branch"].get<std::string>();
+            repo.status = item["status"].get<std::string>();
+            repo.parent = item["parent"].get<std::string>();
+            repo.url = item["url"].get<std::string>();
+            repo.enabled = item["enabled"].get<bool>();
+
+            repos.emplace_back(repo);
+        }
+
     } else {
+        auto j = json::array();
         auto folders = gitrepo::scanner::scan_folders(config);
         spdlog::info("folder count: {}", folders.size());
 
