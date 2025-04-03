@@ -109,4 +109,14 @@ namespace gitrepo::tools {
 
         return repo;
     }
+
+    CommandResponse run_job(const GitRepo& repo, const std::string& command) {
+        CommandResponse response;
+        response.repo = repo;
+        response.cmd = command;
+
+        response.output = exec(repo.parent, command);
+
+        return response;
+    }
 }

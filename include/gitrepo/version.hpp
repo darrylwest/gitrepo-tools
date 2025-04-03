@@ -13,8 +13,8 @@ namespace gitrepo {
     struct Version {
         int major = 0;
         int minor = 2;
-        int patch = 4;
-        int build = 112;
+        int patch = 5;
+        int build = 114;
 
         friend std::ostream& operator<<(std::ostream& os, const Version v) {
             // better to use <format> but it breaks on linux and fmt broken on darwin

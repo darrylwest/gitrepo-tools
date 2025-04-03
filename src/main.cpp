@@ -9,7 +9,6 @@
 #include <gitrepo/scanner.hpp>
 #include <gitrepo/tools.hpp>
 #include <future>
-#include <thread>
 #include <vector>
 
 
@@ -32,7 +31,7 @@ int main(int argc, char **argv) {
     auto folders = gitrepo::scanner::scan_folders(config);
     spdlog::info("folder count: {}", folders.size());
 
-    std::vector<std::future<std::string>> jobs;
+    std::vector<std::future<gitrepo::tools::CommandResponse>> jobs;
     jobs.reserve(folders.size());
     for (const auto& folder : folders) {
         spdlog::debug("folder: {}", folder.c_str());
@@ -44,16 +43,16 @@ int main(int argc, char **argv) {
         }
 
         // execute the command in a separate thread
-        jobs.push_back(std::async(std::launch::async, gitrepo::tools::exec, repo.parent, ctx.cmd));
+        jobs.push_back(std::async(std::launch::async, gitrepo::tools::run_job, repo, ctx.cmd));
     }
 
-    std::vector<std::string> results;
+    std::vector<gitrepo::tools::CommandResponse> results;
     for (auto& job : jobs) {
         results.push_back(job.get());
     }
 
     for (const auto& result : results) {
-        spdlog::info("{}", result);
+        spdlog::info("{}: {}: {}", result.repo.name, result.cmd, result.output);
     }
 
     return 0;

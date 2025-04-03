@@ -34,7 +34,8 @@ namespace gitrepo::tools {
     };
 
     struct CommandResponse {
-        int exit_code;
+        GitRepo repo;
+        std::string cmd;
         std::string output;
         std::string error;
     };
@@ -59,5 +60,7 @@ namespace gitrepo::tools {
 
     // execute the git command
     std::string exec(const std::string& repo_folder, const std::string& command);
+
+    CommandResponse run_job(const GitRepo& repo, const std::string& command);
 
 }  // namespace gitrepo::tools
