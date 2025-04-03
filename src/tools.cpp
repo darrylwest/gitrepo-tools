@@ -85,13 +85,27 @@ namespace gitrepo::tools {
     std::string get_status(const std::string& repo_root) {
         spdlog::debug("get_status: {}", repo_root);
         auto status = exec(repo_root, "status -s");
-        spdlog::info("status: {} len: {}", status, status.size());
+        spdlog::debug("status: {} len: {}", status, status.size());
         return status.empty() ? CLEAN : DIRTY;
     }
 
     GitRepo scan_repo(const std::string& path) {
+        const auto git_root = path + "/.git";
+
         GitRepo repo;
-        repo.name = path;
+
+        size_t last = path.find_last_of('/');
+        if (last != std::string::npos) {
+            repo.name = path.substr(last + 1);
+        } else {
+            repo.name = path;
+        }
+
+        repo.branch = get_active_branch(git_root);
+        repo.status = get_status(path);
+        repo.parent = path;
+        repo.url = get_remote_url(git_root);
+        repo.enabled = true;
 
         return repo;
     }

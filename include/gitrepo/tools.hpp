@@ -8,6 +8,7 @@
 #include <gitrepo/cli.hpp>
 #include <string>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 namespace gitrepo::tools {
 
@@ -18,6 +19,18 @@ namespace gitrepo::tools {
         std::string parent;
         std::string url;
         bool enabled;
+
+        // Member function to convert GitRepo to JSON
+        nlohmann::json to_json() const {
+            return nlohmann::json{
+                {"name", name},
+                {"branch", branch},
+                {"status", status},
+                {"parent", parent},
+                {"url", url},
+                {"enabled", enabled}
+            };
+        }
     };
 
     struct CommandResponse {

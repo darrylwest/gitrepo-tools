@@ -34,7 +34,7 @@ namespace gitrepo::scanner {
             auto file = fs::path(entry).append(".git");
             if (fs::exists(file)) {
                 std::string fstr = file.string();
-                spdlog::info("git repo: {}", fstr);
+                spdlog::debug("git repo: {}", fstr);
                 folders.push_back(entry);
             }
 
