@@ -33,6 +33,8 @@ int main(int argc, char **argv) {
         spdlog::debug("folder: {}", folder.c_str());
         const auto repo = gitrepo::tools::scan_repo(folder);
         spdlog::info("repo: {}", repo.to_json().dump());
+
+        // execute the command in a separate thread
     }
 
 
