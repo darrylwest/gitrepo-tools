@@ -19,7 +19,11 @@ TEST_CASE("Data tests", "[data-read]") {
 
 TEST_CASE("Data tests", "[data-write]") {
     spdlog::set_level(spdlog::level::critical);
-    REQUIRE(true);
+    std::string datafile = "./data/repos-test.db";
+    auto repos = read_repos_db(datafile);
+    datafile = "./data/repos-test-copy.db";
+    auto count = write_repos_db(datafile, repos);
+    REQUIRE(count == repos.size());
 }
 
 
