@@ -14,8 +14,9 @@ const std::string test_repo = "tests/test-repo";
 TEST_CASE("Tools tests", "[version]") {
     const auto vers = gitrepo::Version();
     REQUIRE(vers.major == 0);
-    REQUIRE(vers.minor == 2);
+    REQUIRE(vers.minor == 3);
     REQUIRE(vers.patch >= 1);
+    REQUIRE(vers.build >= 110);
     REQUIRE(vers.to_string() >= "0.1.0");
 }
 

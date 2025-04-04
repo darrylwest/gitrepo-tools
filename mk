@@ -50,14 +50,14 @@ do
             shift
         ;;
         run)
-            ./build/$project --repo-home "$HOME/.gitrepo-tools"
+            ./build/$project --repo-home "$HOME/.gitrepo-tools" $*
 
-            shift
+            exit 0
         ;;
         skip)
-            ./build/$project --repo-home "$HOME/.gitrepo-tools" --skip-scan
+            ./build/$project --repo-home "$HOME/.gitrepo-tools" --skip-scan $*
 
-            shift
+            exit 0
         ;;
         format)
             clang-format -i include/gitrepo/*.hpp src/*.cpp

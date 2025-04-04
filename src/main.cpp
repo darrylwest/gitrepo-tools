@@ -15,22 +15,24 @@
 
 int main(int argc, char** argv) {
     using json = nlohmann::json;
+    using namespace gitrepo;
 
     spdlog::set_level(spdlog::level::info);
 
-    auto ctx = gitrepo::cli::parse(argc, argv);
+    auto ctx = cli::parse(argc, argv);
 
+    // cli detected a help or version switch, so exit
     if (ctx.skip) {
         return 0;
     }
 
     spdlog::info("context: {}", ctx.to_string());
 
-    auto config = gitrepo::config::parse_config(ctx);
+    auto config = config::parse_config(ctx);
 
     spdlog::info("config home: {}", config.home_folder);
 
-    std::vector<gitrepo::tools::GitRepo> repos;
+    std::vector<tools::GitRepo> repos;
     auto db_filename = ctx.repo_home + "/data/repos.db";
 
     if (ctx.skip_scan) {
@@ -47,7 +49,7 @@ int main(int argc, char** argv) {
 
         // now create the repos vector
         for (const json& item : jdata) {
-            gitrepo::tools::GitRepo repo;
+            tools::GitRepo repo;
 
             repo.name = item["name"].get<std::string>();
             repo.branch = item["branch"].get<std::string>();
@@ -61,12 +63,12 @@ int main(int argc, char** argv) {
 
     } else {
         auto j = json::array();
-        auto folders = gitrepo::scanner::scan_folders(config);
+        auto folders = scanner::scan_folders(config);
         spdlog::info("folder count: {}", folders.size());
 
         for (const auto& folder : folders) {
             spdlog::debug("folder: {}", folder.c_str());
-            const auto repo = gitrepo::tools::scan_repo(folder);
+            const auto repo = tools::scan_repo(folder);
             spdlog::info("repo: {}", repo.to_json().dump());
 
             if (repo.status != "clean" || repo.url.empty()) {
@@ -87,14 +89,14 @@ int main(int argc, char** argv) {
         }
     }
 
-    std::vector<std::future<gitrepo::tools::CommandResponse>> jobs;
+    std::vector<std::future<tools::CommandResponse>> jobs;
     jobs.reserve(repos.size());
     for (const auto& repo : repos) {
         // execute the command in a separate thread
-        jobs.push_back(std::async(std::launch::async, gitrepo::tools::run_job, repo, ctx.cmd));
+        jobs.push_back(std::async(std::launch::async, tools::run_job, repo, ctx.cmd));
     }
 
-    std::vector<gitrepo::tools::CommandResponse> results;
+    std::vector<tools::CommandResponse> results;
     for (auto& job : jobs) {
         results.push_back(job.get());
     }
