@@ -11,6 +11,7 @@
 #include <vector>
 
 namespace gitrepo::tools {
+    using json = nlohmann::json;
 
     struct GitRepo {
         std::string name;
@@ -26,6 +27,8 @@ namespace gitrepo::tools {
                                   {"parent", parent}, {"url", url},       {"enabled", enabled}};
         }
     };
+
+    const GitRepo from_json(const json& item);
 
     struct CommandResponse {
         GitRepo repo;

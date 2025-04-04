@@ -19,6 +19,19 @@ namespace gitrepo::tools {
     constexpr auto CLEAN = "clean";
     constexpr auto DIRTY = "dirty";
 
+    const GitRepo from_json(const json& item) {
+        GitRepo repo;
+
+        repo.name = item["name"].get<std::string>();
+        repo.branch = item["branch"].get<std::string>();
+        repo.status = item["status"].get<std::string>();
+        repo.parent = item["parent"].get<std::string>();
+        repo.url = item["url"].get<std::string>();
+        repo.enabled = item["enabled"].get<bool>();
+
+        return repo;
+    }
+
     std::string get_active_branch(const std::string& repo_root) {
         fs::path head_path(repo_root / GIT_HEAD);
         std::ifstream headFile(head_path.string());

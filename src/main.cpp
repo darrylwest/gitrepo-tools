@@ -9,13 +9,13 @@
 #include <future>
 #include <gitrepo/cli.hpp>
 #include <gitrepo/config.hpp>
+#include <gitrepo/data.hpp>
 #include <gitrepo/scanner.hpp>
 #include <gitrepo/tools.hpp>
 #include <nlohmann/json.hpp>
 #include <vector>
 
 int main(int argc, char** argv) {
-    using json = nlohmann::json;
     using namespace gitrepo;
 
     spdlog::set_level(spdlog::level::info);
@@ -33,37 +33,12 @@ int main(int argc, char** argv) {
 
     spdlog::info("config home: {}", config.home_folder);
 
-    std::vector<tools::GitRepo> repos;
     auto db_filename = ctx.repo_home + "/data/repos.db";
+    // find the last update timestamp to determine to skip scan
+    auto repos = data::read_repos_db(db_filename);
 
-    if (ctx.skip_scan) {
-        // read from the database
-        spdlog::info("skip scan and read the repo database: {}", db_filename);
-        std::ifstream json_file(db_filename);
-        if (!json_file || !json_file.is_open()) {
-            spdlog::error("Failed to open repo database {}", db_filename);
-            return 1;
-        }
-        json jdata;
-        json_file >> jdata;
-        json_file.close();
-
-        // now create the repos vector
-        for (const json& item : jdata) {
-            tools::GitRepo repo;
-
-            repo.name = item["name"].get<std::string>();
-            repo.branch = item["branch"].get<std::string>();
-            repo.status = item["status"].get<std::string>();
-            repo.parent = item["parent"].get<std::string>();
-            repo.url = item["url"].get<std::string>();
-            repo.enabled = item["enabled"].get<bool>();
-
-            repos.emplace_back(repo);
-        }
-
-    } else {
-        auto j = json::array();
+    if (!ctx.skip_scan) {
+        repos.clear();
         auto folders = scanner::scan_folders(config);
         spdlog::info("folder count: {}", folders.size());
 
@@ -77,16 +52,13 @@ int main(int argc, char** argv) {
             }
 
             repos.emplace_back(repo);
-            j.push_back(repo.to_json());
         }
 
-        // now write them out to the data file...
-        std::ofstream file(db_filename);
-        if (!file) {
-            spdlog::error("Failed to open file {}", db_filename);
+        auto count = data::write_repos_db(db_filename, repos);
+        if (count == repos.size()) {
+            spdlog::info("repo db size: {}", count);
         } else {
-            file << j.dump(4);
-            file.close();
+            spdlog::error("repo db size: {}", count);
         }
     }
 
