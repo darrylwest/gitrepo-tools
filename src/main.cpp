@@ -3,6 +3,7 @@
 //
 
 #include <spdlog/spdlog.h>
+
 #include <filesystem>
 #include <fstream>
 #include <future>
@@ -10,8 +11,8 @@
 #include <gitrepo/config.hpp>
 #include <gitrepo/scanner.hpp>
 #include <gitrepo/tools.hpp>
-#include <vector>
 #include <nlohmann/json.hpp>
+#include <vector>
 
 int main(int argc, char** argv) {
     using json = nlohmann::json;
