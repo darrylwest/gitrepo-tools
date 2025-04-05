@@ -1,234 +1,29 @@
-[
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "guitar-lab",
-        "parent": "/Users/dpw/raincity/music-projects/guitar-lab",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/guitar-lab.git"
-    },
-    {
-        "branch": "main",
-        "enabled": true,
-        "name": "edge-ioc",
-        "parent": "/Users/dpw/raincity/electronic-projects/edge-ioc",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/edge-ioc.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "songwriters-workspace",
-        "parent": "/Users/dpw/raincity/web-projects/songwriters-workspace",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/songwriters-workspace.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "home-inventory",
-        "parent": "/Users/dpw/raincity/web-projects/home-inventory",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/home-inventory.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "html-snippets",
-        "parent": "/Users/dpw/raincity/web-projects/html-snippets",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/html-snippets.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "darrylwest.github.io",
-        "parent": "/Users/dpw/raincity/web-projects/darrylwest.github.io",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/darrylwest.github.io.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "threads",
-        "parent": "/Users/dpw/raincity/web-projects/threads",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/threads.git"
-    },
-    {
-        "branch": "master",
-        "enabled": true,
-        "name": "min",
-        "parent": "/Users/dpw/raincity/web-projects/min",
-        "status": "clean",
-        "url": "https://github.com/minbrowser/min.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "memories",
-        "parent": "/Users/dpw/raincity/web-projects/memories",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/memories.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "datetimelib",
-        "parent": "/Users/dpw/raincity/c-projects/datetimelib",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/datetimelib.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "gitrepo-tools",
-        "parent": "/Users/dpw/raincity/c-projects/gitrepo-tools",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/gitrepo-tools.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "cpp-sandbox",
-        "parent": "/Users/dpw/raincity/c-projects/cpp-sandbox",
-        "status": "clean",
-        "url": "git@gitlab.com:darrylwest/cpp-sandbox.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "domain-keys",
-        "parent": "/Users/dpw/raincity/c-projects/domain-keys",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cpp-domain-keys.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "quickkv",
-        "parent": "/Users/dpw/raincity/c-projects/quickkv",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/quickkv.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "task-service",
-        "parent": "/Users/dpw/raincity/c-projects/task-service",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cpp-task-service.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "pub-sub",
-        "parent": "/Users/dpw/raincity/c-projects/pub-sub",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cpp-pub-sub.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "cryptor",
-        "parent": "/Users/dpw/raincity/c-projects/cryptor",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cryptor.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "cpp-utils",
-        "parent": "/Users/dpw/raincity/c-projects/cpp-utils",
-        "status": "clean",
-        "url": "git@gitlab.com:darrylwest/cpp-utils.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "browser",
-        "parent": "/Users/dpw/raincity/c-projects/browser",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/browser.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "tiny-app-starter",
-        "parent": "/Users/dpw/raincity/c-projects/tiny-app-starter",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cpp-tiny-app-starter.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "repo-util",
-        "parent": "/Users/dpw/raincity/c-projects/repo-util",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/repo-util.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "data-logger",
-        "parent": "/Users/dpw/raincity/c-projects/data-logger",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/data-logger.git"
-    },
-    {
-        "branch": "main",
-        "enabled": true,
-        "name": "datetimelib",
-        "parent": "/Users/dpw/raincity/c-projects/data-logger/datetimelib",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/datetimelib.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "perf-timer",
-        "parent": "/Users/dpw/raincity/c-projects/perf-timer",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/cpp-perf-timer.git"
-    },
-    {
-        "branch": "main",
-        "enabled": true,
-        "name": "docker-environments",
-        "parent": "/Users/dpw/raincity/docker-environments",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/docker-environments.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "domain-keys",
-        "parent": "/Users/dpw/raincity/rust-projects/domain-keys",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/domain-keys.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "passphrase",
-        "parent": "/Users/dpw/raincity/rust-projects/passphrase",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/passphrase.git"
-    },
-    {
-        "branch": "main",
-        "enabled": true,
-        "name": "replica",
-        "parent": "/Users/dpw/raincity/rust-projects/replica",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/replica-rs.git"
-    },
-    {
-        "branch": "develop",
-        "enabled": true,
-        "name": "play",
-        "parent": "/Users/dpw/raincity/rust-projects/play",
-        "status": "clean",
-        "url": "git@github.com:darrylwest/rust-play.git"
-    }
-]
+7zAmMlxZlNAx={"branch":"develop","enabled":true,"name":"guitar-lab","parent":"/Users/dpw/raincity/music-projects/guitar-lab","status":"clean","url":"git@github.com:darrylwest/guitar-lab.git"}
+7zAmMlxZrKEX={"branch":"main","enabled":true,"name":"edge-ioc","parent":"/Users/dpw/raincity/electronic-projects/edge-ioc","status":"clean","url":"git@github.com:darrylwest/edge-ioc.git"}
+7zAmMlxZtMmu={"branch":"develop","enabled":true,"name":"songwriters-workspace","parent":"/Users/dpw/raincity/web-projects/songwriters-workspace","status":"clean","url":"git@github.com:darrylwest/songwriters-workspace.git"}
+7zAmMlxZwcCX={"branch":"develop","enabled":true,"name":"home-inventory","parent":"/Users/dpw/raincity/web-projects/home-inventory","status":"clean","url":"git@github.com:darrylwest/home-inventory.git"}
+7zAmMlxZyfO7={"branch":"develop","enabled":true,"name":"html-snippets","parent":"/Users/dpw/raincity/web-projects/html-snippets","status":"clean","url":"git@github.com:darrylwest/html-snippets.git"}
+7zAmMlxZzChM={"branch":"develop","enabled":true,"name":"darrylwest.github.io","parent":"/Users/dpw/raincity/web-projects/darrylwest.github.io","status":"clean","url":"git@github.com:darrylwest/darrylwest.github.io.git"}
+7zAmMlxa17CF={"branch":"develop","enabled":true,"name":"threads","parent":"/Users/dpw/raincity/web-projects/threads","status":"clean","url":"git@github.com:darrylwest/threads.git"}
+7zAmMlxa35KB={"branch":"master","enabled":true,"name":"min","parent":"/Users/dpw/raincity/web-projects/min","status":"clean","url":"https://github.com/minbrowser/min.git"}
+7zAmMlxa5BEi={"branch":"develop","enabled":true,"name":"memories","parent":"/Users/dpw/raincity/web-projects/memories","status":"clean","url":"git@github.com:darrylwest/memories.git"}
+7zAmMlxa7hea={"branch":"develop","enabled":true,"name":"datetimelib","parent":"/Users/dpw/raincity/c-projects/datetimelib","status":"clean","url":"git@github.com:darrylwest/datetimelib.git"}
+7zAmMlxa9Mb4={"branch":"develop","enabled":true,"name":"gitrepo-tools","parent":"/Users/dpw/raincity/c-projects/gitrepo-tools","status":"clean","url":"git@github.com:darrylwest/gitrepo-tools.git"}
+7zAmMlxaB3w0={"branch":"develop","enabled":true,"name":"cpp-sandbox","parent":"/Users/dpw/raincity/c-projects/cpp-sandbox","status":"clean","url":"git@gitlab.com:darrylwest/cpp-sandbox.git"}
+7zAmMlxaDaR0={"branch":"develop","enabled":true,"name":"domain-keys","parent":"/Users/dpw/raincity/c-projects/domain-keys","status":"clean","url":"git@github.com:darrylwest/cpp-domain-keys.git"}
+7zAmMlxaFE6b={"branch":"develop","enabled":true,"name":"quickkv","parent":"/Users/dpw/raincity/c-projects/quickkv","status":"clean","url":"git@github.com:darrylwest/quickkv.git"}
+7zAmMlxaHWVs={"branch":"develop","enabled":true,"name":"task-service","parent":"/Users/dpw/raincity/c-projects/task-service","status":"clean","url":"git@github.com:darrylwest/cpp-task-service.git"}
+7zAmMlxaJSqR={"branch":"develop","enabled":true,"name":"pub-sub","parent":"/Users/dpw/raincity/c-projects/pub-sub","status":"clean","url":"git@github.com:darrylwest/cpp-pub-sub.git"}
+7zAmMlxaLMjh={"branch":"develop","enabled":true,"name":"cryptor","parent":"/Users/dpw/raincity/c-projects/cryptor","status":"clean","url":"git@github.com:darrylwest/cryptor.git"}
+7zAmMlxaNeOq={"branch":"develop","enabled":true,"name":"cpp-utils","parent":"/Users/dpw/raincity/c-projects/cpp-utils","status":"clean","url":"git@gitlab.com:darrylwest/cpp-utils.git"}
+7zAmMlxaPIc4={"branch":"develop","enabled":true,"name":"browser","parent":"/Users/dpw/raincity/c-projects/browser","status":"clean","url":"git@github.com:darrylwest/browser.git"}
+7zAmMlxaQQUg={"branch":"develop","enabled":true,"name":"tiny-app-starter","parent":"/Users/dpw/raincity/c-projects/tiny-app-starter","status":"clean","url":"git@github.com:darrylwest/cpp-tiny-app-starter.git"}
+7zAmMlxaSfpi={"branch":"develop","enabled":true,"name":"repo-util","parent":"/Users/dpw/raincity/c-projects/repo-util","status":"clean","url":"git@github.com:darrylwest/repo-util.git"}
+7zAmMlxaUqVc={"branch":"develop","enabled":true,"name":"data-logger","parent":"/Users/dpw/raincity/c-projects/data-logger","status":"clean","url":"git@github.com:darrylwest/data-logger.git"}
+7zAmMlxaWmaz={"branch":"main","enabled":true,"name":"datetimelib","parent":"/Users/dpw/raincity/c-projects/data-logger/datetimelib","status":"clean","url":"git@github.com:darrylwest/datetimelib.git"}
+7zAmMlxaYHGF={"branch":"develop","enabled":true,"name":"perf-timer","parent":"/Users/dpw/raincity/c-projects/perf-timer","status":"clean","url":"git@github.com:darrylwest/cpp-perf-timer.git"}
+7zAmMlxaabTR={"branch":"main","enabled":true,"name":"docker-environments","parent":"/Users/dpw/raincity/docker-environments","status":"clean","url":"git@github.com:darrylwest/docker-environments.git"}
+7zAmMlxacMoR={"branch":"develop","enabled":true,"name":"domain-keys","parent":"/Users/dpw/raincity/rust-projects/domain-keys","status":"clean","url":"git@github.com:darrylwest/domain-keys.git"}
+7zAmMlxaeUgu={"branch":"develop","enabled":true,"name":"passphrase","parent":"/Users/dpw/raincity/rust-projects/passphrase","status":"clean","url":"git@github.com:darrylwest/passphrase.git"}
+7zAmMlxafubZ={"branch":"main","enabled":true,"name":"replica","parent":"/Users/dpw/raincity/rust-projects/replica","status":"clean","url":"git@github.com:darrylwest/replica-rs.git"}
+7zAmMlxahWvK={"branch":"develop","enabled":true,"name":"play","parent":"/Users/dpw/raincity/rust-projects/play","status":"clean","url":"git@github.com:darrylwest/rust-play.git"}
