@@ -4,15 +4,14 @@
 
 #include <spdlog/spdlog.h>
 
+#include <domainkeys/keys.hpp>
 #include <filesystem>
 #include <fstream>
 #include <gitrepo/data.hpp>
 #include <nlohmann/json.hpp>
+#include <quickkv/quickkv.hpp>
 #include <sstream>
 #include <vector>
-#include <quickkv/quickkv.hpp>
-#include <domainkeys/keys.hpp>
-#include <filesystem>
 
 namespace gitrepo::data {
     using json = nlohmann::json;
@@ -29,7 +28,7 @@ namespace gitrepo::data {
 
         // now create the repos vector
         for (const auto& key : store.keys()) {
-            spdlog::debug("reading key {}", key);
+            // spdlog::debug("reading key {}", key);
             auto response = store.get(key);
             if (response) {
                 auto jval = json::parse(response.value());

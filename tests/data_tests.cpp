@@ -24,6 +24,7 @@ TEST_CASE("Data tests", "[data-write]") {
     datafile = "./data/repos-test-copy.db";
     auto count = write_repos_db(datafile, repos);
     REQUIRE(count == repos.size());
+    spdlog::set_level(spdlog::level::critical);
 }
 
 
