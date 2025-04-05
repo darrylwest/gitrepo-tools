@@ -10,12 +10,15 @@
 #include <nlohmann/json.hpp>
 #include <sstream>
 #include <vector>
+#include <quickkv/quickkv.hpp>
+#include <domainkeys/keys.hpp>
 
 namespace gitrepo::data {
     using json = nlohmann::json;
 
     // read the data file, parse the json and return a vector of GitRepo objects
     std::vector<tools::GitRepo> read_repos_db(const std::string& datafile) {
+
         spdlog::info("reading repos from {}", datafile);
         std::vector<tools::GitRepo> repos;
         // read from the database
@@ -43,21 +46,17 @@ namespace gitrepo::data {
     size_t write_repos_db(const std::string& datafile, std::vector<tools::GitRepo>& repos) {
         spdlog::info("writing repos to {}", datafile);
 
-        auto j = json::array();
-
+        quickkv::KVStore store;
         for (const tools::GitRepo& repo : repos) {
-            j.push_back(repo.to_json());
+            auto key = domainkeys::keys::create_timestamp_key();
+            store.set(key.to_string(), repo.to_json().dump(4));
         }
 
-        std::ofstream json_file(datafile);
-        if (!json_file || !json_file.is_open()) {
-            spdlog::error("failed to open repo database {}", datafile);
-            return 0;
+        if (store.write(datafile)) {
+            return store.size();
         }
 
-        json_file << j;
-        json_file.close();
-
-        return repos.size();
+        spdlog::error("failed to write repo database {}", datafile);
+        return 0;
     }
 }  // namespace gitrepo::data
