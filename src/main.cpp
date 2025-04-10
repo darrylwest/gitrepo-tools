@@ -15,7 +15,21 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
+void change_to_home() {
+    const char* home = getenv("HOME");
+    if (home == nullptr) {
+        std::cerr << "HOME not set" << std::endl;
+        exit(1);
+    }
+
+    std::filesystem::path path(home);
+
+    std::filesystem::current_path(path);
+}
+
 int main(int argc, char** argv) {
+    change_to_home();
+
     using namespace gitrepo;
 
     spdlog::set_level(spdlog::level::info);
